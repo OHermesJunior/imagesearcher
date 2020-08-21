@@ -1,0 +1,19 @@
+<resources>
+    <string name="settings_title">Settings</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="take_picture">Take a Picture</string>
+    <string name="pick_image">Pick a Image</string>
+
+    <!-- Preferences -->
+    <string name="about_header">About</string>
+    <string name="version_summary">Version %s</string>
+    <string name="opensource_title">OpenSource</string>
+    <string name="opensource_summary">Contribute on GitHub!</string>
+    <string name="licenses_title">Licenses</string>
+    <string name="licenses_summary">OpenSource libraries used</string>
+    <string name="engines_title">Search Engines</string>
+    <string name="engines_summary">Which engines will be used</string>
+    <string name="easter_egg">There is no developer options here</string>
+    <string name="more_apps">More Apps</string>
+</resources>

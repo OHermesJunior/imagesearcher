@@ -1,0 +1,14 @@
+<resources>
+    <!-- Engines Preference -->
+    <string-array name="engines_entries">
+        <item>Google</item>
+        <item>Yandex</item>
+        <item>Bing</item>
+    </string-array>
+
+    <string-array name="engines_values">
+        <item>google</item>
+        <item>yandex</item>
+        <item>bing</item>
+    </string-array>
+</resources>

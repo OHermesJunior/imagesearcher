@@ -1,0 +1,58 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        app:key="library"
+        app:summary="Apache 2"
+        app:title="ChoosePhotoHelper">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com/aminography/ChoosePhotoHelper" />
+    </Preference>
+
+    <Preference
+        app:key="library"
+        app:summary="Apache 2"
+        app:title="OkHttp">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com/ohermesjunior" />
+    </Preference>
+
+    <Preference
+        app:key="library"
+        app:summary="BSD, part MIT and Apache 2.0"
+        app:title="Glide">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com/bumptech/glide" />
+    </Preference>
+
+    <Preference
+        app:key="library"
+        app:summary="Apache 2"
+        app:title="Google Material Components">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com/material-components/material-components-android" />
+    </Preference>
+
+    <Preference
+        app:key="library"
+        app:summary="Apache 2"
+        app:title="AndroidX">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev" />
+    </Preference>
+
+    <Preference
+        app:key="library"
+        app:summary="Apache 2"
+        app:title="Kotlin">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com/jetbrains/kotlin" />
+    </Preference>
+
+</PreferenceScreen>

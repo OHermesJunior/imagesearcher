@@ -1,0 +1,40 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="Search">
+
+        <MultiSelectListPreference
+            app:defaultValue="@array/engines_values"
+            app:entries="@array/engines_entries"
+            app:entryValues="@array/engines_values"
+            app:key="engines"
+            app:summary="@string/engines_summary"
+            app:title="@string/engines_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/about_header">
+
+        <Preference
+            app:fragment="com.hermesjunior.imagesearcher.ui.settings.LicensesFragment"
+            app:key="licenses"
+            app:summary="@string/licenses_summary"
+            app:title="@string/licenses_title" />
+
+        <Preference
+            app:key="opensource"
+            app:summary="@string/opensource_summary"
+            app:title="@string/opensource_title">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/ohermesjunior" />
+        </Preference>
+
+        <Preference
+            app:key="version"
+            app:summary="@string/version_summary"
+            app:title="@string/app_name" />
+
+    </PreferenceCategory>
+</PreferenceScreen>
