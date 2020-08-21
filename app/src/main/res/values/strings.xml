@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="take_picture">Take a Picture</string>
-    <string name="pick_image">Pick a Image</string>
+    <string name="pick_image">Pick an Image</string>
 
     <!-- Preferences -->
     <string name="about_header">About</string>

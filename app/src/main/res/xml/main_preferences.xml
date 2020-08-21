@@ -28,7 +28,7 @@
             app:title="@string/opensource_title">
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="https://github.com/ohermesjunior" />
+                android:data="https://github.com/OHermesJunior/imagesearcher" />
         </Preference>
 
         <Preference
