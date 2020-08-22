@@ -15,7 +15,8 @@ class LicensesFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.licenses_preferences, rootKey)
 
-        viewModel.setAllowGoBack(true)
         viewModel.setAppbarTitle(getString(R.string.licenses_title))
+        viewModel.setAllowGoBack(true)
+        viewModel.setShowSettingsIcon(false)
     }
 }

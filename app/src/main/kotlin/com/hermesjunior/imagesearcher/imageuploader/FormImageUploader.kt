@@ -28,11 +28,7 @@ abstract class FormImageUploader : ImageUploader {
                 .header("User-Agent", "curl")
                 .post(requestBody)
                 .build()
-            val client = OkHttpClient().newBuilder().addInterceptor(
-                HttpLoggingInterceptor(
-                    HttpLoggingInterceptor.Logger.DEFAULT
-                ).setLevel(HttpLoggingInterceptor.Level.BODY)
-            ).build()
+            val client = OkHttpClient()
 
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {

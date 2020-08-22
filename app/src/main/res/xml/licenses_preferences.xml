@@ -21,11 +21,11 @@
 
     <Preference
         app:key="library"
-        app:summary="BSD, part MIT and Apache 2.0"
-        app:title="Glide">
+        app:summary="Apache 2.0"
+        app:title="UCrop">
         <intent
             android:action="android.intent.action.VIEW"
-            android:data="https://github.com/bumptech/glide" />
+            android:data="https://github.com/Yalantis/uCrop" />
     </Preference>
 
     <Preference
