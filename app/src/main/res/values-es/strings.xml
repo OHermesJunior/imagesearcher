@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="take_picture">Tomar una Foto</string>
+    <string name="pick_image">Eligir una Imagen</string>
+    <string name="crop_error">Ocurrió un error.</string>
+    <string name="settings_title">Ajustes</string>
+    <string name="search_header">Búsqueda</string>
+    <string name="engines_title">Motores de Búsqueda</string>
+    <string name="engines_summary">Qué motores de búsqueda se utilizarán</string>
+    <string name="about_header">Acerca de</string>
+    <string name="version_summary">Versión %s</string>
+    <string name="opensource_title">OpenSource</string>
+    <string name="opensource_summary">Contribuir en GitHub!</string>
+    <string name="licenses_title">Licencias</string>
+    <string name="licenses_summary">Bibliotecas OpenSource utilizadas</string>
+    <string name="easter_egg">No tenemos opciones de desarrollador</string>
+</resources>
