@@ -1,5 +1,4 @@
-# Reverse Image Searcher [![Version](https://img.shields.io/badge/version-1.0-brightgreen)]()   [![License](https://img.shields.io/badge/license-Apache%202.0-blue)]()
-
+# Reverse Image Searcher ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ohermesjunior/imagesearcher?color=bright-green&label=version)   ![GitHub](https://img.shields.io/github/license/ohermesjunior/imagesearcher?color=blue)
 
 <img src="assets/icon.png" align="left" width="200" hspace="10" vspace="10">
 
