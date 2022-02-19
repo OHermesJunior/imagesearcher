@@ -4,12 +4,16 @@
 
 Reverse Image Searcher allows you to search images from your phone in multiple search engines at the same time! It is an open source, ad free and has a modern UI.
 
-The app will be available on the Google Play Store and F-Droid.  
+The app will be available on F-Droid soon.  
+
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+     alt="Get it on Google Play"
+     height="100">](https://play.google.com/store/apps/details?id=com.hermesjunior.reverseimagesearcher)
 
 ## Licensing
 
 ```
-Copyright 2020, Hermes Junior
+Copyright 2022, Hermes Junior
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
