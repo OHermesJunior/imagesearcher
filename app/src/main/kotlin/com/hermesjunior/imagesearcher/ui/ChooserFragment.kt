@@ -44,9 +44,9 @@ class ChooserFragment : Fragment() {
         choosePhotoHelper = ChoosePhotoHelper.with(this)
             .asFilePath()
             .withState(savedInstanceState)
-            .build(ChoosePhotoCallback {
-                viewModel.setImageFilePath(it)
-            })
+            .build {
+                viewModel.setImageFilePath(it.orEmpty())
+            }
     }
 
 

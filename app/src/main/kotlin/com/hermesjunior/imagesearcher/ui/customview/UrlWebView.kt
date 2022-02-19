@@ -17,8 +17,8 @@ class UrlWebView : WebView {
     /**
      * The URL to open.
      */
-    var initUrl: String?
-        get() = _initUrl
+    var initUrl: String
+        get() = _initUrl.orEmpty()
         set(value) {
             _initUrl = value
         }
