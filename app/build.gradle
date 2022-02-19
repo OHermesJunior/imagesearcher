@@ -2,13 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion "30.0.3"
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.hermesjunior.reverseimagesearcher"
-        minSdkVersion 21
-        targetSdkVersion 31
+        minSdk 21
+        targetSdk 31
         versionCode 2
         versionName "1.1"
 
@@ -33,25 +32,15 @@ android {
         }
     }
 
-    sourceSets.all {
-        java.srcDir("src/$name/kotlin")
-    }
-
     packagingOptions {
-        exclude 'META-INF/*.version'
-        exclude 'META-INF/proguard/*'
-        exclude '/*.properties'
-        exclude 'META-INF/*.properties'
+        jniLibs {
+            excludes += ['META-INF/proguard/*']
+        }
+        resources {
+            excludes += ['META-INF/*.version', 'META-INF/proguard/*', '/*.properties', 'META-INF/*.properties']
+        }
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
 }
 
 dependencies {

@@ -62,7 +62,7 @@ class MainViewModel(private val context: Application) : AndroidViewModel(context
         uploadedUrl.postValue(url)
 
         val engines: Set<String> =
-            prefs.getStringSet("engines", setOf("google", "yandex", "bing"))!!
+            prefs.getStringSet("engines", setOf("google", "yandex", "bing")) as Set<String>
         val resultKeys = mapOf(
             "google" to SearchResult(
                 "Google",
