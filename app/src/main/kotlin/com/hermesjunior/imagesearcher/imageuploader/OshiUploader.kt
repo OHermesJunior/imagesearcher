@@ -21,6 +21,6 @@ class OshiUploader : FormImageUploader() {
         get() = { res ->
             val dlStart = res.indexOf("DL") + 4
             val dlEnd = res.indexOf("\n", dlStart)
-            res.substring(dlStart, dlEnd)
+            res.substring(dlStart, dlEnd) + ".png"
         }
 }
