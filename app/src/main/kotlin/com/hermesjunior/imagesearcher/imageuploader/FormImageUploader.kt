@@ -3,7 +3,6 @@ package com.hermesjunior.imagesearcher.imageuploader
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.logging.HttpLoggingInterceptor
 import java.io.File
 import java.io.IOException
 
@@ -14,15 +13,20 @@ abstract class FormImageUploader : ImageUploader {
 
     protected abstract val formName: String
     protected abstract val serverURL: String
+    protected open val reponseExtractor: (String) -> String = { s -> s }
+    protected open val formData: Map<String, String> = emptyMap()
 
     override fun upload(file: File, callback: ImageUploader.UploadCallback): Boolean {
         try {
-            val requestBody: RequestBody = MultipartBody.Builder()
+            val requestBuilder = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart(
                     formName, file.name, file.asRequestBody("image/jpeg".toMediaTypeOrNull())
                 )
-                .build()
+            formData.forEach {
+                requestBuilder.addFormDataPart(it.key, it.value)
+            }
+            val requestBody = requestBuilder.build()
             val request: Request = Request.Builder()
                 .url(serverURL)
                 .header("User-Agent", "curl")
@@ -37,7 +41,8 @@ abstract class FormImageUploader : ImageUploader {
 
                 override fun onResponse(call: Call, response: Response) {
                     if (response.isSuccessful) {
-                        callback.onResult(response.body?.string().orEmpty())
+                        val imgUrl = reponseExtractor(response.body?.string().orEmpty())
+                        callback.onResult(imgUrl)
                     }
                 }
             })

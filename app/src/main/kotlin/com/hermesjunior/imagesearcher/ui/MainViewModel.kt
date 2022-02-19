@@ -9,14 +9,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
 import com.hermesjunior.imagesearcher.R
 import com.hermesjunior.imagesearcher.imageuploader.ImageUploader
-import com.hermesjunior.imagesearcher.imageuploader.Img10Uploader
+import com.hermesjunior.imagesearcher.imageuploader.OshiUploader
 import com.hermesjunior.imagesearcher.model.SearchResult
 import java.io.File
 
 class MainViewModel(private val context: Application) : AndroidViewModel(context) {
 
     private var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-    private val imageUploader: ImageUploader = Img10Uploader()
+    private val imageUploader: ImageUploader = OshiUploader()
     private val uploadedUrl = MutableLiveData("")
     private val imgPath = MutableLiveData("")
     private val appbarTitle = MutableLiveData(context.getString(R.string.app_name))
