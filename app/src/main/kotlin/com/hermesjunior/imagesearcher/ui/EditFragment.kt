@@ -67,6 +67,12 @@ class EditFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        blockingView.isClickable = false
+        progressBar.visibility = View.GONE
+        super.onPause()
+    }
+
     private fun setImageData(input: Uri, output: Uri) {
         try {
             gestureCropImageView.setImageUri(input, output)

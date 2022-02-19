@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import com.google.android.material.appbar.AppBarLayout
 import com.hermesjunior.imagesearcher.R
@@ -35,33 +36,31 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getImageFilePath().observe(this, Observer {
             if (!it.isNullOrEmpty()) {
-                supportFragmentManager
-                    .beginTransaction()
-                    .setCustomAnimations(
+                supportFragmentManager.commit {
+                    setCustomAnimations(
                         R.anim.enter_from_right,
                         R.anim.exit_to_left,
                         R.anim.enter_from_left,
                         R.anim.exit_to_right
                     )
-                    .replace(R.id.nav_host, EditFragment())
-                    .addToBackStack(null)
-                    .commit()
+                    replace(R.id.nav_host, EditFragment())
+                    addToBackStack(null)
+                }
             }
         })
 
         viewModel.getSearchResults().observe(this, Observer {
             if (!it.isNullOrEmpty()) {
-                supportFragmentManager
-                    .beginTransaction()
-                    .setCustomAnimations(
+                supportFragmentManager.commit {
+                    setCustomAnimations(
                         R.anim.enter_from_right,
                         R.anim.exit_to_left,
                         R.anim.enter_from_left,
                         R.anim.exit_to_right
                     )
-                    .replace(R.id.nav_host, ResultsFragment())
-                    .addToBackStack(null)
-                    .commit()
+                    replace(R.id.nav_host, ResultsFragment())
+                    addToBackStack(null)
+                }
             }
         })
     }
@@ -81,17 +80,16 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_settings -> {
-                supportFragmentManager
-                    .beginTransaction()
-                    .setCustomAnimations(
+                supportFragmentManager.commit {
+                    setCustomAnimations(
                         R.anim.enter_from_left,
                         R.anim.exit_to_right,
                         R.anim.enter_from_right,
                         R.anim.exit_to_left
                     )
-                    .replace(R.id.nav_host, SettingsFragment())
-                    .addToBackStack(null)
-                    .commit()
+                    replace(R.id.nav_host, SettingsFragment())
+                    addToBackStack(null)
+                }
                 return true
             }
             else -> super.onOptionsItemSelected(item)
