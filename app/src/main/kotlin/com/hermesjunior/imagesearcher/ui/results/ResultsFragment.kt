@@ -5,17 +5,38 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Keep
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.hermesjunior.imagesearcher.R
+import com.hermesjunior.imagesearcher.ui.ChooserFragment
 import com.hermesjunior.imagesearcher.ui.MainViewModel
+import com.hermesjunior.imagesearcher.ui.customview.BaseFragment
 
 @Keep
-class ResultsFragment : Fragment() {
+class ResultsFragment : BaseFragment() {
+
+    companion object {
+        val TAG = "ResultsFragment"
+    }
 
     private val viewModel by activityViewModels<MainViewModel>()
+    private lateinit var viewPager: ViewPager
+    private lateinit var pagesAdapter: SearchPagesAdapter
+
+    override fun onBackPressed(): Boolean {
+        val webView = pagesAdapter.getViewPage(viewPager.currentItem)
+        if (webView.canGoBack()) {
+            webView.goBack()
+            return true
+        } else {
+            if (viewPager.currentItem > 0) {
+                viewPager.setCurrentItem(viewPager.currentItem - 1, true)
+                return true
+            }
+        }
+        return false
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,10 +52,11 @@ class ResultsFragment : Fragment() {
         viewModel.setAppbarTitle("")
         viewModel.setAllowGoBack(true)
         viewModel.setShowSettingsIcon(true)
+        viewModel.fragmentTag = ChooserFragment.TAG
 
-        val viewPager = view.findViewById<ViewPager>(R.id.viewPager)
         val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
-        val pagesAdapter = SearchPagesAdapter(requireActivity())
+        viewPager = view.findViewById<ViewPager>(R.id.viewPager)
+        pagesAdapter = SearchPagesAdapter(requireActivity())
 
         pagesAdapter.setSearchResults(viewModel.getSearchResults().value!!)
         viewPager.adapter = pagesAdapter

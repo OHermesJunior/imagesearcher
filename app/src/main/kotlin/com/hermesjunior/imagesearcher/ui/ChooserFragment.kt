@@ -7,14 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.Keep
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.aminography.choosephotohelper.ChoosePhotoHelper
-import com.aminography.choosephotohelper.callback.ChoosePhotoCallback
 import com.hermesjunior.imagesearcher.R
+import com.hermesjunior.imagesearcher.ui.customview.BaseFragment
 
 @Keep
-class ChooserFragment : Fragment() {
+class ChooserFragment : BaseFragment() {
+
+    companion object {
+        val TAG = "ChooserFragment"
+    }
 
     private var choosePhotoHelper: ChoosePhotoHelper? = null
     private val viewModel by activityViewModels<MainViewModel>()
@@ -33,6 +36,7 @@ class ChooserFragment : Fragment() {
         viewModel.setAppbarTitle("")
         viewModel.setAllowGoBack(false)
         viewModel.setShowSettingsIcon(true)
+        viewModel.fragmentTag = TAG
 
         view.findViewById<Button>(R.id.btn_pick_image).setOnClickListener {
             choosePhotoHelper?.chooseFromGallery()

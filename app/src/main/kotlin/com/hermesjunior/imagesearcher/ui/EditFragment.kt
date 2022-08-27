@@ -10,10 +10,10 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.Keep
 import androidx.core.net.toUri
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hermesjunior.imagesearcher.R
+import com.hermesjunior.imagesearcher.ui.customview.BaseFragment
 import com.yalantis.ucrop.UCrop
 import com.yalantis.ucrop.UCropFragment
 import com.yalantis.ucrop.callback.BitmapCropCallback
@@ -25,7 +25,11 @@ import java.io.File
  * Modified from UCropFragment.
  */
 @Keep
-class EditFragment : Fragment() {
+class EditFragment : BaseFragment() {
+
+    companion object {
+        val TAG = "EditFragment"
+    }
 
     private val viewModel by activityViewModels<MainViewModel>()
     private lateinit var progressBar: ProgressBar
@@ -42,6 +46,8 @@ class EditFragment : Fragment() {
         viewModel.setAppbarTitle("")
         viewModel.setAllowGoBack(true)
         viewModel.setShowSettingsIcon(true)
+        viewModel.fragmentTag = ChooserFragment.TAG
+
         val rootView: View = inflater.inflate(R.layout.fragment_edit_pic, container, false)
         rootView.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             cropAndSaveImage()

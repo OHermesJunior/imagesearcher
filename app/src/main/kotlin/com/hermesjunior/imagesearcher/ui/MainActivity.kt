@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import com.google.android.material.appbar.AppBarLayout
 import com.hermesjunior.imagesearcher.R
+import com.hermesjunior.imagesearcher.ui.customview.BaseFragment
 import com.hermesjunior.imagesearcher.ui.results.ResultsFragment
 import com.hermesjunior.imagesearcher.ui.settings.SettingsFragment
 
@@ -43,8 +44,8 @@ class MainActivity : AppCompatActivity() {
                         R.anim.enter_from_left,
                         R.anim.exit_to_right
                     )
-                    replace(R.id.nav_host, EditFragment())
-                    addToBackStack(null)
+                    replace(R.id.nav_host, EditFragment(), EditFragment.TAG)
+                    addToBackStack(EditFragment.TAG)
                 }
             }
         }
@@ -58,8 +59,8 @@ class MainActivity : AppCompatActivity() {
                         R.anim.enter_from_left,
                         R.anim.exit_to_right
                     )
-                    replace(R.id.nav_host, ResultsFragment())
-                    addToBackStack(null)
+                    replace(R.id.nav_host, ResultsFragment(), ResultsFragment.TAG)
+                    addToBackStack(ResultsFragment.TAG)
                 }
             }
         }
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                onBackPressed()
+                super.onBackPressed()
                 return true
             }
             R.id.action_settings -> {
@@ -101,6 +102,16 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onBackPressed() {
+        supportFragmentManager.fragments.forEach {
+            if (it.isVisible) {
+                if(it !is BaseFragment || !it.onBackPressed()) {
+                    super.onBackPressed()
+                }
+            }
         }
     }
 }

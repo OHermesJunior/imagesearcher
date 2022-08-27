@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
 import com.hermesjunior.imagesearcher.R
 import com.hermesjunior.imagesearcher.imageuploader.ImageUploader
-import com.hermesjunior.imagesearcher.imageuploader.OshiUploader
 import com.hermesjunior.imagesearcher.imageuploader.TransfershUploader
 import com.hermesjunior.imagesearcher.model.SearchResult
 import java.io.File
@@ -25,6 +24,12 @@ class MainViewModel(private val context: Application) : AndroidViewModel(context
     private val showSettingsIcon = MutableLiveData(true)
     private val searchResults = MutableLiveData<List<SearchResult>>(emptyList())
     private val error = MutableLiveData(false)
+    var fragmentTag = ""
+        get() = field
+        set(value) {
+            field = value
+        }
+
     var croppedImgPath = ""
 
     fun setShowSettingsIcon(allow: Boolean) {
