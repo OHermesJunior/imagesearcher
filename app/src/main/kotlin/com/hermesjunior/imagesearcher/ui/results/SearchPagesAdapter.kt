@@ -22,6 +22,7 @@ class SearchPagesAdapter(private val context: Context) : PagerAdapter() {
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         Log.d("ImageSearcher", "ResultPage - ${searchResultPages[position].engineTitle} loading: ${searchResultPages[position].searchUrl}")
         val view = AdvancedWebView(context)
+        view.setThirdPartyCookiesEnabled(false)
         view.setCookiesEnabled(false)
         view.loadUrl(searchResultPages[position].searchUrl)
         webViewPages.set(position, view)

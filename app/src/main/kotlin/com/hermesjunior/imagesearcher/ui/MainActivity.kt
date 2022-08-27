@@ -3,6 +3,9 @@ package com.hermesjunior.imagesearcher.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.webkit.CookieManager
+import android.webkit.WebStorage
+import android.webkit.WebView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -113,5 +116,19 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        WebStorage.getInstance().deleteAllData()
+
+        CookieManager.getInstance().removeAllCookies(null)
+        CookieManager.getInstance().flush()
+
+        val webView = WebView(this)
+        webView.clearCache(true)
+        webView.clearFormData()
+        webView.clearHistory()
+        webView.clearSslPreferences()
+        super.onDestroy()
     }
 }
