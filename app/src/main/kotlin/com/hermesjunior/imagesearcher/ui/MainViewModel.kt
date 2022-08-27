@@ -23,6 +23,7 @@ class MainViewModel(private val context: Application) : AndroidViewModel(context
     private val allowGoBack = MutableLiveData(false)
     private val showSettingsIcon = MutableLiveData(true)
     private val searchResults = MutableLiveData<List<SearchResult>>(emptyList())
+    private val error = MutableLiveData(false)
     var croppedImgPath = ""
 
     fun setShowSettingsIcon(allow: Boolean) {
@@ -30,6 +31,12 @@ class MainViewModel(private val context: Application) : AndroidViewModel(context
     }
 
     fun getShowSettingsIcon(): LiveData<Boolean> = showSettingsIcon
+
+    fun getError(): LiveData<Boolean> = error
+
+    fun shownError() {
+        error.value = false
+    }
 
     fun setAllowGoBack(allow: Boolean) {
         allowGoBack.value = allow
@@ -50,8 +57,12 @@ class MainViewModel(private val context: Application) : AndroidViewModel(context
         imageUploader.upload(
             File(croppedImgPath),
             object : ImageUploader.UploadCallback {
-                override fun onResult(responseStr: String) {
-                    setUploadedImageUrl(responseStr)
+                override fun onResult(url: String) {
+                    if (url == "") {
+                        notifyError()
+                    } else {
+                        setUploadedImageUrl(url)
+                    }
                 }
             })
     }
@@ -85,6 +96,10 @@ class MainViewModel(private val context: Application) : AndroidViewModel(context
             resultKeys[engine]?.let { results.add(it) }
         }
         searchResults.postValue(results)
+    }
+
+    fun notifyError() {
+        error.postValue(true)
     }
 
     fun getUploadedImageUrl(): LiveData<String> = uploadedUrl

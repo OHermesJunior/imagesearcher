@@ -3,10 +3,10 @@ package com.hermesjunior.imagesearcher.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
-import androidx.lifecycle.Observer
 import com.google.android.material.appbar.AppBarLayout
 import com.hermesjunior.imagesearcher.R
 import com.hermesjunior.imagesearcher.ui.results.ResultsFragment
@@ -25,16 +25,16 @@ class MainActivity : AppCompatActivity() {
 
         appbarLayout = findViewById(R.id.appbar_layout)
 
-        viewModel.getAppbarTitle().observe(this, Observer {
+        viewModel.getAppbarTitle().observe(this) {
             title = it
-        })
+        }
 
-        viewModel.getAllowGoBack().observe(this, Observer {
+        viewModel.getAllowGoBack().observe(this) {
             supportActionBar?.setDisplayHomeAsUpEnabled(it)
             supportActionBar?.setDisplayShowHomeEnabled(it)
-        })
+        }
 
-        viewModel.getImageFilePath().observe(this, Observer {
+        viewModel.getImageFilePath().observe(this) {
             if (!it.isNullOrEmpty()) {
                 supportFragmentManager.commit {
                     setCustomAnimations(
@@ -47,9 +47,9 @@ class MainActivity : AppCompatActivity() {
                     addToBackStack(null)
                 }
             }
-        })
+        }
 
-        viewModel.getSearchResults().observe(this, Observer {
+        viewModel.getSearchResults().observe(this) {
             if (!it.isNullOrEmpty()) {
                 supportFragmentManager.commit {
                     setCustomAnimations(
@@ -62,14 +62,22 @@ class MainActivity : AppCompatActivity() {
                     addToBackStack(null)
                 }
             }
-        })
+        }
+
+        viewModel.getError().observe(this) {
+            if (it) {
+                Toast.makeText(applicationContext, "Failed to upload image.", Toast.LENGTH_LONG).show()
+                viewModel.shownError()
+                onBackPressed()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
-        viewModel.getShowSettingsIcon().observe(this, Observer {
+        viewModel.getShowSettingsIcon().observe(this) {
             menu.findItem(R.id.action_settings).isVisible = it
-        })
+        }
         return true
     }
 
