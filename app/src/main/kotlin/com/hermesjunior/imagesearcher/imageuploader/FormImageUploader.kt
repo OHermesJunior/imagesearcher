@@ -1,5 +1,6 @@
 package com.hermesjunior.imagesearcher.imageuploader
 
+import android.util.Log
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -15,19 +16,27 @@ abstract class FormImageUploader : ImageUploader {
     protected abstract val serverURL: String
     protected open val reponseExtractor: (String) -> String = { s -> s }
     protected open val formData: Map<String, String> = emptyMap()
+    protected open val headerData: Map<String, String> = emptyMap()
 
     override fun upload(file: File, callback: ImageUploader.UploadCallback): Boolean {
         try {
-            val requestBuilder = MultipartBody.Builder()
+            val requestBodyBuilder = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart(
                     formName, file.name, file.asRequestBody("image/jpeg".toMediaTypeOrNull())
                 )
             formData.forEach {
-                requestBuilder.addFormDataPart(it.key, it.value)
+                requestBodyBuilder.addFormDataPart(it.key, it.value)
             }
-            val requestBody = requestBuilder.build()
-            val request: Request = Request.Builder()
+            val requestBody = requestBodyBuilder.build()
+            val requestBuilder = Request.Builder()
+                .url(serverURL)
+                .header("User-Agent", "curl")
+                .post(requestBody)
+            headerData.forEach {
+                requestBuilder.header(it.key, it.value)
+            }
+            val request = Request.Builder()
                 .url(serverURL)
                 .header("User-Agent", "curl")
                 .post(requestBody)
@@ -36,12 +45,14 @@ abstract class FormImageUploader : ImageUploader {
 
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
+                    Log.d("ImageSearcher", "ImageUploader - Failure: ${e.message}")
                     callback.onResult("")
                 }
 
                 override fun onResponse(call: Call, response: Response) {
                     if (response.isSuccessful) {
                         val imgUrl = reponseExtractor(response.body?.string().orEmpty())
+                        Log.d("ImageSearcher", "ImageUploader - Success url: ${imgUrl}")
                         callback.onResult(imgUrl)
                     }
                 }
