@@ -4,6 +4,9 @@
 
 Reverse Image Searcher allows you to search images from your phone in multiple search engines at the same time! It is an open source, ad free and has a modern UI.
 
+It uploads your image to [oshi.at](https://oshi.at/) (a FLOSS anonymous file sharing server) which will be deleted after an hour.  
+The image will be sent to Google, Bing and Yandex search engines by default, but this can be configured on the settings.
+
 The app will be available on F-Droid soon.  
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
