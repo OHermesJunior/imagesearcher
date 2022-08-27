@@ -2,11 +2,12 @@ package com.hermesjunior.imagesearcher.ui.results
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
 import com.hermesjunior.imagesearcher.model.SearchResult
-import com.hermesjunior.imagesearcher.ui.customview.UrlWebView
+import im.delight.android.webview.AdvancedWebView
 
 class SearchPagesAdapter(private val context: Context) : PagerAdapter() {
 
@@ -17,10 +18,10 @@ class SearchPagesAdapter(private val context: Context) : PagerAdapter() {
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view = UrlWebView(
-            searchResultPages[position].searchUrl,
-            context
-        )
+        Log.d("ImageSearcher", "ResultPage - ${searchResultPages[position].engineTitle} loading: ${searchResultPages[position].searchUrl}")
+        val view = AdvancedWebView(context)
+        view.setCookiesEnabled(false)
+        view.loadUrl(searchResultPages[position].searchUrl)
         container.addView(view)
         return view
     }
@@ -29,7 +30,7 @@ class SearchPagesAdapter(private val context: Context) : PagerAdapter() {
         container.removeView(view as View)
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return "" //searchResultPages[position].engineTitle
     }
 

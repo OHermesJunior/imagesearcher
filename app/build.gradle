@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.8.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.8.1'
     implementation 'com.github.yalantis:ucrop:2.2.6'
+    implementation 'com.github.delight-im:Android-AdvancedWebView:v3.2.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

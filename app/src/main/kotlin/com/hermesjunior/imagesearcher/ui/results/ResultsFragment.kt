@@ -34,7 +34,7 @@ class ResultsFragment : Fragment() {
 
         val viewPager = view.findViewById<ViewPager>(R.id.viewPager)
         val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
-        val pagesAdapter = SearchPagesAdapter(requireContext())
+        val pagesAdapter = SearchPagesAdapter(requireActivity())
 
         pagesAdapter.setSearchResults(viewModel.getSearchResults().value!!)
         viewPager.adapter = pagesAdapter
