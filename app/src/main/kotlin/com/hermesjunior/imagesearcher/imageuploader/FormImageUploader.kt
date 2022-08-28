@@ -45,7 +45,7 @@ abstract class FormImageUploader : ImageUploader {
 
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
-                    Log.d("ImageSearcher", "ImageUploader - Failure: ${e.message}")
+                    Log.e("ImageSearcher", "ImageUploader - Failure:", e)
                     callback.onResult("")
                 }
 

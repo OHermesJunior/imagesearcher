@@ -20,11 +20,13 @@ class SearchPagesAdapter(private val context: BaseFragment) : PagerAdapter() {
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        Log.d("ImageSearcher", "ResultPage - ${searchResultPages[position].engineTitle} loading: ${searchResultPages[position].searchUrl}")
+        val result = searchResultPages[position]
+        Log.d("ImageSearcher", "ResultPage - ${result.engineTitle} loading: ${result.searchUrl}")
         val view = AdvancedWebView(context.activity)
         view.setThirdPartyCookiesEnabled(false)
         view.setCookiesEnabled(false)
-        view.loadUrl(searchResultPages[position].searchUrl)
+        view.addHttpHeader("DNT", "1") // Do not track
+        view.loadUrl(result.searchUrl)
         context.registerForContextMenu(view)
         webViewPages.set(position, view)
         container.addView(view)

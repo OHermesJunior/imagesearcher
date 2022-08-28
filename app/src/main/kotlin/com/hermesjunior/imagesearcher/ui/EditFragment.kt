@@ -28,7 +28,7 @@ import java.io.File
 class EditFragment : BaseFragment() {
 
     companion object {
-        val TAG = "EditFragment"
+        const val TAG = "EditFragment"
     }
 
     private val viewModel by activityViewModels<MainViewModel>()

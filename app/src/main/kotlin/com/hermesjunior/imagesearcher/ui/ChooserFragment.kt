@@ -16,7 +16,7 @@ import com.hermesjunior.imagesearcher.ui.customview.BaseFragment
 class ChooserFragment : BaseFragment() {
 
     companion object {
-        val TAG = "ChooserFragment"
+        const val TAG = "ChooserFragment"
     }
 
     private var choosePhotoHelper: ChoosePhotoHelper? = null

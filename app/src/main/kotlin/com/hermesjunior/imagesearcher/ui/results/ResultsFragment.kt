@@ -23,7 +23,7 @@ import im.delight.android.webview.AdvancedWebView
 class ResultsFragment : BaseFragment() {
 
     companion object {
-        val TAG = "ResultsFragment"
+        const val TAG = "ResultsFragment"
     }
 
     private val viewModel by activityViewModels<MainViewModel>()
