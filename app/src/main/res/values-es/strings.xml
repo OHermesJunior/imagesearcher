@@ -14,5 +14,6 @@
     <string name="licenses_title">Licencias</string>
     <string name="licenses_summary">Bibliotecas OpenSource utilizadas</string>
     <string name="easter_egg">No tenemos opciones de desarrollador</string>
-    <string name="openlink_title">Abrir</string>
+    <string name="save_image">Guardar imagen</string>
+    <string name="open_external_browser">Abrir en navegador externo</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.hermesjunior.imagesearcher.ui.results
 
-import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.View
@@ -8,9 +7,10 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import androidx.viewpager.widget.PagerAdapter
 import com.hermesjunior.imagesearcher.model.SearchResult
+import com.hermesjunior.imagesearcher.ui.customview.BaseFragment
 import im.delight.android.webview.AdvancedWebView
 
-class SearchPagesAdapter(private val context: Context) : PagerAdapter() {
+class SearchPagesAdapter(private val context: BaseFragment) : PagerAdapter() {
 
     private var searchResultPages = emptyList<SearchResult>()
     private var webViewPages = emptyArray<WebView?>()
@@ -21,10 +21,11 @@ class SearchPagesAdapter(private val context: Context) : PagerAdapter() {
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         Log.d("ImageSearcher", "ResultPage - ${searchResultPages[position].engineTitle} loading: ${searchResultPages[position].searchUrl}")
-        val view = AdvancedWebView(context)
+        val view = AdvancedWebView(context.activity)
         view.setThirdPartyCookiesEnabled(false)
         view.setCookiesEnabled(false)
         view.loadUrl(searchResultPages[position].searchUrl)
+        context.registerForContextMenu(view)
         webViewPages.set(position, view)
         container.addView(view)
         return view

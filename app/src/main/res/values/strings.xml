@@ -3,8 +3,6 @@
     <string name="take_picture">Take a Picture</string>
     <string name="pick_image">Pick an Image</string>
     <string name="crop_error">An error occurred.</string>
-
-    <!-- Preferences -->
     <string name="settings_title">Settings</string>
     <string name="search_header">Search</string>
     <string name="engines_title">Search Engines</string>
@@ -16,5 +14,6 @@
     <string name="licenses_title">Licenses</string>
     <string name="licenses_summary">OpenSource libraries used</string>
     <string name="easter_egg">There is no developer options here</string>
-    <string name="openlink_title">Open</string>
+    <string name="save_image">Save Image</string>
+    <string name="open_external_browser">Open on external browser</string>
 </resources>

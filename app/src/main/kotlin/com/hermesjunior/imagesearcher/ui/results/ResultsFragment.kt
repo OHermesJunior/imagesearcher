@@ -3,9 +3,12 @@ package com.hermesjunior.imagesearcher.ui.results
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.os.Handler
+import android.util.Log
+import android.view.*
+import android.webkit.URLUtil
+import android.webkit.WebView
+import android.webkit.WebView.HitTestResult
 import androidx.annotation.Keep
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager.widget.ViewPager
@@ -14,6 +17,7 @@ import com.hermesjunior.imagesearcher.R
 import com.hermesjunior.imagesearcher.ui.ChooserFragment
 import com.hermesjunior.imagesearcher.ui.MainViewModel
 import com.hermesjunior.imagesearcher.ui.customview.BaseFragment
+import im.delight.android.webview.AdvancedWebView
 
 @Keep
 class ResultsFragment : BaseFragment() {
@@ -27,7 +31,7 @@ class ResultsFragment : BaseFragment() {
     private lateinit var pagesAdapter: SearchPagesAdapter
 
     override fun onBackPressed(): Boolean {
-        val webView = pagesAdapter.getViewPage(viewPager.currentItem)
+        val webView = getCurrentWebView()
         if (webView.canGoBack()) {
             webView.goBack()
             return true
@@ -57,22 +61,72 @@ class ResultsFragment : BaseFragment() {
         viewModel.setShowLinkIcon(true)
         viewModel.fragmentTag = ChooserFragment.TAG
 
-        val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
-        viewPager = view.findViewById<ViewPager>(R.id.viewPager)
-        pagesAdapter = SearchPagesAdapter(requireActivity())
+        pagesAdapter = SearchPagesAdapter(this).apply {
+            setSearchResults(viewModel.getSearchResults().value!!)
+        }
 
-        pagesAdapter.setSearchResults(viewModel.getSearchResults().value!!)
-        viewPager.adapter = pagesAdapter
-        viewPager.offscreenPageLimit = pagesAdapter.count - 1
-        tabLayout.setupWithViewPager(viewPager)
-        for (i in 0 until tabLayout.tabCount) {
-            tabLayout.getTabAt(i)?.icon = pagesAdapter.getPageIcon(i)
+        viewPager = view.findViewById<ViewPager>(R.id.viewPager).apply {
+            adapter = pagesAdapter
+            offscreenPageLimit = pagesAdapter.count - 1
+        }
+
+        view.findViewById<TabLayout>(R.id.tabLayout).run {
+            setupWithViewPager(viewPager)
+            for (i in 0 until tabCount) {
+                getTabAt(i)?.icon = pagesAdapter.getPageIcon(i)
+            }
+        }
+    }
+
+    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        val webView = getCurrentWebView()
+        val result = webView.hitTestResult
+        val url = result.extra
+        var link = url
+        var isLink = false
+        val filename = URLUtil.guessFileName(url, null, null)
+
+        if ((result.type == HitTestResult.IMAGE_TYPE ||
+            result.type == HitTestResult.SRC_IMAGE_ANCHOR_TYPE) &&
+            URLUtil.isNetworkUrl(url) // TODO: Cannot handle base64 blobs for now
+        ) {
+            Log.d(TAG, "Long clicked image $url")
+            menu.add(0, 1, 0, R.string.save_image).setOnMenuItemClickListener {
+                Log.d(TAG, "Downloading image $filename from $url")
+                AdvancedWebView.handleDownload(context, url, filename)
+                true
+            }
+
+            val message = Handler().obtainMessage()
+            webView.requestFocusNodeHref(message)
+            val maybeLink = message.data.getString("url")
+            maybeLink?.let {
+                Log.d(TAG, "Found link on image $maybeLink")
+                isLink = true
+                link = maybeLink
+            }
+        }
+        if (isLink || (result.type == HitTestResult.SRC_ANCHOR_TYPE && URLUtil.isNetworkUrl(link))) {
+            Log.d(TAG, "Long clicked link $link")
+            menu.add(0, 2, 0, R.string.open_external_browser).setOnMenuItemClickListener {
+                openBrowser(link)
+                true
+            }
         }
     }
 
     fun openBrowser() {
-        val webpage: Uri = Uri.parse(pagesAdapter.getViewPage(viewPager.currentItem).url)
+        openBrowser(getCurrentWebView().url)
+    }
+
+    fun openBrowser(url: String?) {
+        val webpage: Uri = Uri.parse(url)
         val intent = Intent(Intent.ACTION_VIEW, webpage)
         startActivity(intent)
+    }
+
+    fun getCurrentWebView(): WebView {
+        return pagesAdapter.getViewPage(viewPager.currentItem)
     }
 }
