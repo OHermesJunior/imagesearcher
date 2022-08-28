@@ -36,6 +36,7 @@ class ChooserFragment : BaseFragment() {
         viewModel.setAppbarTitle("")
         viewModel.setAllowGoBack(false)
         viewModel.setShowSettingsIcon(true)
+        viewModel.setShowLinkIcon(false)
         viewModel.fragmentTag = TAG
 
         view.findViewById<Button>(R.id.btn_pick_image).setOnClickListener {

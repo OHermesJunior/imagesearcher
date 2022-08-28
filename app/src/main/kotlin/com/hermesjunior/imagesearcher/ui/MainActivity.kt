@@ -81,6 +81,15 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_main, menu)
         viewModel.getShowSettingsIcon().observe(this) {
             menu.findItem(R.id.action_settings).isVisible = it
+            if (it) {
+                menu.findItem(R.id.action_openlink).isVisible = false
+            }
+        }
+        viewModel.getShowLinkIcon().observe(this) {
+            menu.findItem(R.id.action_openlink).isVisible = it
+            if (it) {
+                menu.findItem(R.id.action_settings).isVisible = false
+            }
         }
         return true
     }
@@ -102,6 +111,11 @@ class MainActivity : AppCompatActivity() {
                     replace(R.id.nav_host, SettingsFragment())
                     addToBackStack(null)
                 }
+                return true
+            }
+            R.id.action_openlink -> {
+                val fragment = supportFragmentManager.findFragmentByTag(ResultsFragment.TAG)
+                (fragment as ResultsFragment).openBrowser()
                 return true
             }
             else -> super.onOptionsItemSelected(item)

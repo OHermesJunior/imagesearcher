@@ -7,4 +7,10 @@
         android:icon="@drawable/ic_settings"
         android:title="@string/settings_title"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/action_openlink"
+        android:icon="@drawable/ic_openlink"
+        android:title="@string/openlink_title"
+        android:visible="false"
+        app:showAsAction="always" />
 </menu>

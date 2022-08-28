@@ -18,5 +18,6 @@ class LicensesFragment : PreferenceFragmentCompat() {
         viewModel.setAppbarTitle(getString(R.string.licenses_title))
         viewModel.setAllowGoBack(true)
         viewModel.setShowSettingsIcon(false)
+        viewModel.setShowLinkIcon(false)
     }
 }

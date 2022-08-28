@@ -1,5 +1,7 @@
 package com.hermesjunior.imagesearcher.ui.results
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -51,7 +53,8 @@ class ResultsFragment : BaseFragment() {
 
         viewModel.setAppbarTitle("")
         viewModel.setAllowGoBack(true)
-        viewModel.setShowSettingsIcon(true)
+        viewModel.setShowSettingsIcon(false)
+        viewModel.setShowLinkIcon(true)
         viewModel.fragmentTag = ChooserFragment.TAG
 
         val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
@@ -65,5 +68,11 @@ class ResultsFragment : BaseFragment() {
         for (i in 0 until tabLayout.tabCount) {
             tabLayout.getTabAt(i)?.icon = pagesAdapter.getPageIcon(i)
         }
+    }
+
+    fun openBrowser() {
+        val webpage: Uri = Uri.parse(pagesAdapter.getViewPage(viewPager.currentItem).url)
+        val intent = Intent(Intent.ACTION_VIEW, webpage)
+        startActivity(intent)
     }
 }

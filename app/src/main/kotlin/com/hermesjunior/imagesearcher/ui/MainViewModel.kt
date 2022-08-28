@@ -22,6 +22,7 @@ class MainViewModel(private val context: Application) : AndroidViewModel(context
     private val appbarTitle = MutableLiveData(context.getString(R.string.app_name))
     private val allowGoBack = MutableLiveData(false)
     private val showSettingsIcon = MutableLiveData(true)
+    private val showLinkIcon = MutableLiveData(true)
     private val searchResults = MutableLiveData<List<SearchResult>>(emptyList())
     private val error = MutableLiveData(false)
     var fragmentTag = ""
@@ -37,6 +38,12 @@ class MainViewModel(private val context: Application) : AndroidViewModel(context
     }
 
     fun getShowSettingsIcon(): LiveData<Boolean> = showSettingsIcon
+
+    fun setShowLinkIcon(allow: Boolean) {
+        showLinkIcon.value = allow
+    }
+
+    fun getShowLinkIcon(): LiveData<Boolean> = showLinkIcon
 
     fun getError(): LiveData<Boolean> = error
 

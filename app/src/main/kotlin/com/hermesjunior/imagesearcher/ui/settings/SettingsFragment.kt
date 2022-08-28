@@ -37,5 +37,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         viewModel.setAppbarTitle(getString(R.string.settings_title))
         viewModel.setAllowGoBack(true)
         viewModel.setShowSettingsIcon(false)
+        viewModel.setShowLinkIcon(false)
     }
 }

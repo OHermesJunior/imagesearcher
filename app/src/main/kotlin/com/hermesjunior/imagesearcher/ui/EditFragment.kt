@@ -46,6 +46,7 @@ class EditFragment : BaseFragment() {
         viewModel.setAppbarTitle("")
         viewModel.setAllowGoBack(true)
         viewModel.setShowSettingsIcon(true)
+        viewModel.setShowLinkIcon(false)
         viewModel.fragmentTag = ChooserFragment.TAG
 
         val rootView: View = inflater.inflate(R.layout.fragment_edit_pic, container, false)
