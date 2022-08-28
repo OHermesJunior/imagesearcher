@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.viewpager.widget.PagerAdapter
 import com.hermesjunior.imagesearcher.model.SearchResult
@@ -25,6 +26,9 @@ class SearchPagesAdapter(private val context: BaseFragment) : PagerAdapter() {
         val view = AdvancedWebView(context.activity)
         view.setThirdPartyCookiesEnabled(false)
         view.setCookiesEnabled(false)
+        view.settings.databaseEnabled = false
+        view.settings.domStorageEnabled = false
+        view.settings.cacheMode = WebSettings.LOAD_NO_CACHE
         view.addHttpHeader("DNT", "1") // Do not track
         view.loadUrl(result.searchUrl)
         context.registerForContextMenu(view)

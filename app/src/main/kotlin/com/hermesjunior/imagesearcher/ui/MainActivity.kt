@@ -15,6 +15,7 @@ import com.hermesjunior.imagesearcher.R
 import com.hermesjunior.imagesearcher.ui.customview.BaseFragment
 import com.hermesjunior.imagesearcher.ui.results.ResultsFragment
 import com.hermesjunior.imagesearcher.ui.settings.SettingsFragment
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
@@ -132,7 +133,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
+    override fun onStop() {
         WebStorage.getInstance().deleteAllData()
 
         CookieManager.getInstance().removeAllCookies(null)
@@ -143,6 +144,13 @@ class MainActivity : AppCompatActivity() {
         webView.clearFormData()
         webView.clearHistory()
         webView.clearSslPreferences()
-        super.onDestroy()
+
+        try { File("$cacheDir").deleteRecursively() } catch(e: Exception) { e.printStackTrace() }
+        try { File("$externalCacheDir").deleteRecursively() } catch(e: Exception) { e.printStackTrace() }
+        try { File("${applicationInfo.dataDir}/WebView/").deleteRecursively() } catch(e: Exception) { e.printStackTrace() }
+        try { File("${applicationInfo.dataDir}/app_webview/").deleteRecursively() } catch(e: Exception) { e.printStackTrace() }
+        try { File("${filesDir}/WebView/").deleteRecursively() } catch(e: Exception) { e.printStackTrace() }
+        try { File("${filesDir}/app_webview/").deleteRecursively() } catch(e: Exception) { e.printStackTrace() }
+        super.onStop()
     }
 }
