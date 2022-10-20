@@ -1,4 +1,4 @@
-# Reverse Image Searcher ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ohermesjunior/imagesearcher?color=bright-green&label=version)   ![GitHub](https://img.shields.io/github/license/ohermesjunior/imagesearcher?color=blue)
+# Reverse Image Searcher ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ohermesjunior/imagesearcher?color=bright-green&label=version)   ![GitHub](https://img.shields.io/github/license/ohermesjunior/imagesearcher?color=blue)   ![Build CI Status](https://github.com/ohermesjunior/imagesearcher/workflows/Build%20CI/badge.svg)
 
 <img src="assets/icon.png" align="left" width="200" hspace="10" vspace="10">
 
