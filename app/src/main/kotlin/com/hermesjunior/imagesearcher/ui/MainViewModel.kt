@@ -70,11 +70,11 @@ class MainViewModel(private val context: Application) : AndroidViewModel(context
         imageUploader.upload(
             File(croppedImgPath),
             object : ImageUploader.UploadCallback {
-                override fun onResult(url: String) {
-                    if (url == "") {
+                override fun onResult(responseStr: String) {
+                    if (responseStr == "") {
                         notifyError()
                     } else {
-                        setUploadedImageUrl(url)
+                        setUploadedImageUrl(responseStr)
                     }
                 }
             })
@@ -85,30 +85,45 @@ class MainViewModel(private val context: Application) : AndroidViewModel(context
     fun setUploadedImageUrl(url: String) {
         uploadedUrl.postValue(url)
 
-        val engines: Set<String> =
-            prefs.getStringSet("engines", setOf("google", "yandex", "bing")) as Set<String>
-        val resultKeys = mapOf(
-            "google" to SearchResult(
-                "Google",
-                "https://images.google.com/searchbyimage?image_url=$url",
-                ContextCompat.getDrawable(context, R.drawable.ic_google)!!
-            ),
-            "yandex" to SearchResult(
-                "Yandex",
-                "https://yandex.com/images/search?rpt=imageview&url=$url",
-                ContextCompat.getDrawable(context, R.drawable.ic_yandex)!!
-            ),
-            "bing" to SearchResult(
-                "Bing",
-                "https://bing.com/images/search?view=detailv2&iss=sbi&FORM=SBIHMP&q=imgurl:$url",
-                ContextCompat.getDrawable(context, R.drawable.ic_bing)!!
-            )
-        )
-        val results = mutableListOf<SearchResult>()
-        for (engine in engines) {
-            resultKeys[engine]?.let { results.add(it) }
-        }
+        val results = getEnabledSearches(url)
+
         searchResults.postValue(results)
+    }
+
+    /**
+     * @return a list of all enabled search-Settings. Empty list means no searchengine is enabled
+     */
+    fun getEnabledSearches(url: String): MutableList<SearchResult> {
+        val results = mutableListOf<SearchResult>()
+
+        addIfEnabled(
+            results, "Google", R.drawable.ic_google,
+            "https://images.google.com/searchbyimage?image_url=$url"
+        )
+        addIfEnabled(
+            results, "Yandex", R.drawable.ic_yandex,
+            "https://yandex.com/images/search?rpt=imageview&url=$url"
+        )
+        addIfEnabled(
+            results, "Bing", R.drawable.ic_bing,
+            "https://bing.com/images/search?view=detailv2&iss=sbi&FORM=SBIHMP&q=imgurl:$url"
+        )
+        return results
+    }
+
+    private fun addIfEnabled(
+        results: MutableList<SearchResult>,
+        engineTitle: String,
+        idDrawable: Int,
+        searchUrl: String
+    ) {
+        if (prefs.getBoolean(engineTitle.lowercase(), false)) {
+            results.add(
+                SearchResult(
+                    engineTitle,
+                    searchUrl,
+                    ContextCompat.getDrawable(context, idDrawable)!!))
+        }
     }
 
     fun notifyError() {

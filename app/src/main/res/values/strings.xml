@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="take_picture">Take a Picture</string>
     <string name="pick_image">Pick an Image</string>
     <string name="crop_error">An error occurred.</string>
     <string name="settings_title">Settings</string>
-    <string name="search_header">Search</string>
     <string name="engines_title">Search Engines</string>
     <string name="engines_summary">Which engines will be used</string>
     <string name="about_header">About</string>
@@ -16,4 +15,9 @@
     <string name="easter_egg">There is no developer options here</string>
     <string name="save_image">Save Image</string>
     <string name="open_external_browser">Open on external browser</string>
+    <string name="privacy_warning" tools:ignore="MissingTranslation">Privacy Warning:\nThis app uses commercial searchengines that may store and use your data and uploaded image for other purposes.</string>
+    <string name="must_select_engine"  tools:ignore="MissingTranslation">You must select at least one image-search-engine</string>
+    <string name="summary_google" tools:ignore="MissingTranslation">(may connect the uploaded image to your gmail account)</string>
+    <string name="error_image_upload" tools:ignore="MissingTranslation">Failed to upload image.</string>
+    <string name="error_no_searchengine_selected" tools:ignore="MissingTranslation">No Searchengine Selected</string>
 </resources>
