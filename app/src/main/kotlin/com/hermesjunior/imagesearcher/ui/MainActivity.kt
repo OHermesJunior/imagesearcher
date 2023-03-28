@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
@@ -71,10 +72,16 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getError().observe(this) {
             if (it) {
-                Toast.makeText(applicationContext, "Failed to upload image.", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, getString(R.string.error_image_upload), Toast.LENGTH_LONG)
+                    .show()
                 viewModel.shownError()
                 onBackPressed()
             }
+        }
+        if (viewModel.getEnabledSearches("").isEmpty()) {
+            // on first start no searchengine is selected so start with "Settings Dialog" as opti-in
+            showSettings()
+            return
         }
     }
 
@@ -99,19 +106,16 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             android.R.id.home -> {
                 super.onBackPressed()
+                if (this.viewModel.getEnabledSearches("").isEmpty()) {
+                    // when no searchengine is selected exit app with error message
+                    Toast.makeText(this,getString(R.string.error_no_searchengine_selected), Toast.LENGTH_LONG).show()
+                    finish()
+                    return false
+                }
                 return true
             }
             R.id.action_settings -> {
-                supportFragmentManager.commit {
-                    setCustomAnimations(
-                        R.anim.enter_from_left,
-                        R.anim.exit_to_right,
-                        R.anim.enter_from_right,
-                        R.anim.exit_to_left
-                    )
-                    replace(R.id.nav_host, SettingsFragment())
-                    addToBackStack(null)
-                }
+                showSettings()
                 return true
             }
             R.id.action_openlink -> {
@@ -120,6 +124,19 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showSettings() {
+        supportFragmentManager.commit {
+            setCustomAnimations(
+                R.anim.enter_from_left,
+                R.anim.exit_to_right,
+                R.anim.enter_from_right,
+                R.anim.exit_to_left
+            )
+            replace(R.id.nav_host, SettingsFragment())
+            addToBackStack(null)
         }
     }
 

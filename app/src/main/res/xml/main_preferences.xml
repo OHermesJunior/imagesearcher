@@ -1,16 +1,33 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/search_header">
+    <PreferenceCategory app:title="@string/engines_title">
 
-        <MultiSelectListPreference
-            app:defaultValue="@array/engines_values"
-            app:entries="@array/engines_entries"
-            app:entryValues="@array/engines_values"
-            app:key="engines"
-            app:summary="@string/engines_summary"
-            app:title="@string/engines_title"
-            app:useSimpleSummaryProvider="true" />
+        <Preference
+            android:key="pref_static_field_key"
+            android:selectable="false"
+            android:persistent="false"
+            android:title=""
+            android:summary="@string/privacy_warning"/>
+        <Preference
+            android:key="pref_static_field_key2"
+            android:selectable="false"
+            android:persistent="false"
+            android:title=""
+            android:summary="@string/must_select_engine"/>
+        <CheckBoxPreference
+            android:key="yandex"
+            android:title="Yandex"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="bing"
+            android:title="Bing"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="google"
+            android:title="Google"
+            android:summary="@string/summary_google"
+            android:defaultValue="false" />
 
     </PreferenceCategory>
 
