@@ -18,3 +18,8 @@
 
 -keep class * extends android.webkit.WebChromeClient { *; }
 -dontwarn im.delight.android.webview.**
+
+# shink app but do not obfuscate names to avoid unreadable crash stack
+-keepnames class ** { *; }
+-keepnames interface ** { *; }
+-keepnames enum ** { *; }
